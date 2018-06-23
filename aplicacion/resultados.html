@@ -1,0 +1,10 @@
+<h1> {{ pregunta.pregunta_texto }}</h1>
+<ul>
+    {% for elecciones in pregunta.eleccion_set.all %}
+    <li>
+        {{ elecciones.eleccion_texto }} -- {{ elecciones.votos }} vot{{ elecciones.votos|pluralize }}
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'appli:detalles' pregunta.id %}">Votar de nuevo</a>

@@ -1,0 +1,23 @@
+{% load static %}
+<link rel= "stylesheet" type= "text/css" href="{% static 'aplicacion/style.css' %}" />
+
+
+
+{% if listar_ultimas_preguntas %}
+
+    <ul>
+        {% for pregunta in listar_ultimas_preguntas %}
+            <li>
+              <!--  <a href = "/polls/{{pregunta.id}}/"> {{pregunta.pregunta_texto}}</a>-->
+                <!-- Por cada pregunta listada, se muestra como link que -->
+                <!-- lleva al id de la pregunta con href -->
+             <a href= "{% url 'appli:detalles' pregunta.id %}">{{pregunta.pregunta_texto}}</a>
+            <!--Lo anterior resuelve el problema de direccionamiento--> 
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% else %}
+    <p>No polls available.</p>
+{% endif %}

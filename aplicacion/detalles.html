@@ -1,0 +1,36 @@
+
+
+<h1>{{pregunta.pregunta_texto}}</h1>
+
+{% if error_message %}
+<p><strong{{ error_message }}></strong></p>
+{% endif %}
+
+<form action="{% url 'appli:votar' pregunta.id %}" method="POST">
+
+        {% csrf_token %}
+        {% for elecciones in pregunta.eleccion_set.all %}
+                <input type="radio" name="elecciones" id= "elecciones{{ forloop.counter }}" value="{{ elecciones.id }}"/>
+                <label for="elecciones{{ forloop.counter }}">{{ elecciones.eleccion_texto }}</label>
+                <p>Paso de loop: {{ forloop.counter }}</p>
+                <p>Valor: {{ elecciones.id }}</p>
+                <p>Array eleccion: elecciones{{ forloop.counter }}</p>
+        <!-- El id toma el valor de eleccion1, eleccion2, eleccion3, etc, por cada paso
+                del for. Por eso, el label se pone para cada id, es decir, para esa id 
+                del paso del for. -->
+        {% endfor %}
+        <input type="submit" value="Votarr" />
+
+</form>
+
+
+<h1>Cambio anterior: </h1>
+
+<ul>
+        {% for eleccion in pregunta.eleccion_set.all %}
+        <li>{{eleccion.eleccion_texto}}</li>
+        {% endfor %}
+</ul>
+
+
+<a href="{% url 'appli:index' %}">Ir a Origen</a>
